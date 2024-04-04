@@ -35,6 +35,12 @@ function validaChances(tentativa){
         jogada.value = ''
         jogada.focus()
     }
+
+    else if(numerosJogados.includes(tentativa)){
+            alert('Mesmo número não! A única coisa que eu aceito repetido é o Gojo morrendo.')
+        jogada.value = ''
+        jogada.focus()
+    }
     else{
         numerosJogados.push(tentativa) // empurrando o valor no vetor
         //Se minhasJogadas For igual à 6 e temtativa for diferente(!==) do numero aleatorio
@@ -78,4 +84,30 @@ function displayTentativas(tentativa){
 
 function msg(mensagem){
     avisos.innerHTML = `<h1>${mensagem}</h1>`
+}
+
+function fimJogo(){
+    jogada.value = ''
+    jogada.setAttribute('disabled', '')//desabilita caixinha para digitação
+    submit.setAttribute('disabled', '')//desabilita o botão
+    p.innerHTML = '<h1 id="iniciarJogada">Iniciar o Jogo.</h1>'
+    recomecar.appendChild(p)
+    playGame = false;
+    iniciarJogo()
+}
+
+function iniciarJogo(){
+    const botaoiniciar = document.querySelector('#iniciarJogada')
+    botaoiniciar.addEventListener('click',function(){
+        randomNumber = parseInt(Math.random()*100+1)
+        numerosJogados = [] //Deixar o vetor vazio
+        minhasJogadas = 1
+        jogadaAnterior.innerHTML = ''
+        avisos.innerHTML = ''
+        jogadasRestantes.innerHTML = `${7 - minhasJogadas}`
+        jogada.removeAttribute('disabled','')
+        submit.removeAttribute('disabled','')
+        recomecar.removeChild(p)
+        playGame = true 
+    })
 }
